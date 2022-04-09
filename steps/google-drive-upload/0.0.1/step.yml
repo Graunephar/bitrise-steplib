@@ -1,0 +1,78 @@
+title: |-
+  Upload Files to Google Drive
+summary: |
+  Uploads selected files to a folder in Google Drive
+description: |
+  A wrapper for the Google Drive CLI implementation: https://github.com/prasmussen/gdrive.
+
+  Uploads selected files to a folder in Google Drive.
+website: https://github.com/graunephar/bitrise-step-upload-to-google-drive
+source_code_url: https://github.com/graunephar/bitrise-step-upload-to-google-drive
+support_url: https://github.com/graunephar/bitrise-step-upload-to-google-drive/issues
+host_os_tags:
+  - osx-10.10
+  - ubuntu-16.04
+deps:
+  brew:
+  - name: gdrive
+type_tags:
+  - utility
+
+is_requires_admin_user: true
+is_always_run: false
+is_skippable: false
+run_if: ""
+
+deps:
+  brew:
+  - name: git
+  - name: wget
+  apt_get:
+  - name: git
+  - name: wget
+
+
+toolkit:
+  bash:
+    entry_file: step.sh
+
+inputs:
+- folder_id:
+  opts:
+    title: "Destination Folder ID"
+    description: |
+      Destination folder ID. Can be copied from the URL in Google Drive
+    summary: The destination folder ID
+    is_expand: true
+    is_required: true
+- service_account_file_url:
+  opts:
+      title: "Service Account file url"
+      description: |
+        A Download url containing a valid json key to a service account which has access to the folder.
+
+        The repositories Readme fiel found [here](https://github.com/Graunephar/bitrise-step-upload-to-google-drive) contains a detailed guide on how to setWe  it up
+      summary: The Service account to use when uploading the file(s)
+      is_expand: true
+      is_required: true
+      is_sensitive: true
+- files_to_upload_list:
+  opts:
+    title: "List of files to upload"
+    description: |
+      The path for one or more files to upload.
+
+      Can be one or more files. If more than one seperate each path with \n
+    summary: List of files to upload.
+    is_expand: true
+    is_required: true
+
+outputs:
+  - EXAMPLE_STEP_OUTPUT:
+    opts:
+      title: "Example Step Output"
+      summary: Summary. No more than 2-3 sentences.
+      description: |
+        Description of this output.
+
+        Can be Markdown formatted text.
